@@ -14,11 +14,16 @@ class OpinionesController extends Controller
 {
     public function store(Request $request, Monumento $monumento)
     {
+      $this->validate( $request, [
+        'mensaje' => 'required | min:20'
+      ],[
+        'required' => 'El campo :attribute no puede ser vacío.',
+        'mensaje.min' => 'El campo :attribute debe tener al menos 20 caracteres.'
+      ]);
+
       $opinion = new Opinione( $request->all() );
 
-      $opinion->usuario_id = 1;
-
-      $monumento->addOpinione( $opinion );
+      $monumento->addOpinione( $opinion, 1);
 
       return back();
     }

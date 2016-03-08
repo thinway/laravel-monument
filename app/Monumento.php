@@ -19,9 +19,12 @@ class Monumento extends Model
      * Save an opinion associated to a monument.
      *
      * @param $opinione Opinione object.
+     * @param $id User's id of the Opnione's owner.
      */
-     public function addOpinione(Opinione $opinione)
+     public function addOpinione(Opinione $opinione, $id)
      {
+       $opinione->usuario_id = $id;
+
        return $this->opiniones()->save( $opinione );
      }
 }

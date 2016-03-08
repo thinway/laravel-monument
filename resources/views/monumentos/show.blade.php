@@ -1,3 +1,7 @@
+<?php
+$state = "";
+if( count($errors) ) $state = 'has-error';
+?>
 @extends('layout')
 
 @section('titulo')
@@ -17,6 +21,7 @@
         <li class="list-group-item">{{ $opinion->mensaje }} - Por: {{ $opinion->usuario->nombre }}
           <form style="display: inline" class="pull-right"
             action="{{ url('opiniones/'.$opinion->id) }}" method="post">
+            {{ csrf_field() }}
             {{ method_field('delete') }}
             <button style="margin-left: 5px; margin-botton: 5px" type="submit"
             class="btn btn-xs btn-danger">
@@ -35,9 +40,15 @@
     <h3>Comparte tu opinión</h3>
 
     <form method="POST" action="{{ $monumento->id }}">
-      <div class="form-group">
-        <textarea name="mensaje" class="form-control"></textarea>
+      {{ csrf_field() }}
+      <div class="form-group {{ $state }}">
+        <textarea name="mensaje" class="form-control">{{ old('mensaje') }}</textarea>
       </div>
+      @if( count($errors) )
+        @foreach($errors->all() as $error)
+          <span class="help-block">{{ $error }}</span>
+        @endforeach
+      @endif
       <div class="form-group">
         <button type="submit" class="btn btn-primary">Añadir Opinión</button>
       </div>

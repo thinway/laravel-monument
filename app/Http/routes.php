@@ -11,23 +11,6 @@
 |
 */
 
-Route::get('/', function(){
-  return redirect('monumentos');
-});
-
-Route::get('monumentos', 'MonumentosController@index');
-Route::get('monumentos/{monumento}', 'MonumentosController@show')->where('monumento','[0-9]+');
-Route::get('opiniones/{opinione}/edit', 'OpinionesController@edit');
-
-Route::patch('opiniones/{opinione}', 'OpinionesController@update');
-Route::delete('opiniones/{opinione}', 'OpinionesController@delete');
-// Route::get('opiniones/{opinione}/del', 'OpinionesController@delete');
-
-Route::post('monumentos', 'MonumentosController@store');
-Route::post('monumentos/{monumento}', 'OpinionesController@store')->where('monumento','[0-9]+');
-
-Route::get('about', 'MonumentosController@about');
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -39,6 +22,21 @@ Route::get('about', 'MonumentosController@about');
 |
 */
 
-// Route::group(['middleware' => ['web']], function () {
-//     //
-// });
+Route::group(['middleware' => ['web']], function () {
+  Route::get('/', function(){
+    return redirect('monumentos');
+  });
+
+  Route::get('monumentos', 'MonumentosController@index');
+  Route::get('monumentos/{monumento}', 'MonumentosController@show')->where('monumento','[0-9]+');
+  Route::get('opiniones/{opinione}/edit', 'OpinionesController@edit');
+
+  Route::patch('opiniones/{opinione}', 'OpinionesController@update');
+  Route::delete('opiniones/{opinione}', 'OpinionesController@delete');
+  // Route::get('opiniones/{opinione}/del', 'OpinionesController@delete');
+
+  Route::post('monumentos', 'MonumentosController@store');
+  Route::post('monumentos/{monumento}', 'OpinionesController@store')->where('monumento','[0-9]+');
+
+  Route::get('about', 'MonumentosController@about');
+});
